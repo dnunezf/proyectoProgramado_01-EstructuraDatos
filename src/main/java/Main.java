@@ -11,5 +11,7 @@ public class Main
 
         // NODO CON EL CUAL INICIALIZAMOS EL METODO, Y A PARTIR DE AHI RECORREMOS
         arbol.recorrer(arbol.raiz);
+
+        System.out.println("HOLA");
     }
 }
