@@ -4,25 +4,16 @@ import java.util.Objects;
 
 public class Animal {
     // Atributos de la clase Animal
-    private String nombre;
     private Integer codigo;
+    private String nombre;
 
     // Constructor
-    public Animal(String nombre)
-    {
-        this.nombre = nombre;
+    public Animal(String nombre) {
         this.codigo = 0; // Inicializado en 0
+        this.nombre = nombre;
     }
 
     // GETTER'S AND SETTER'S
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public Integer getCodigo() {
         return codigo;
@@ -30,6 +21,14 @@ public class Animal {
 
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     // Método toString
@@ -43,8 +42,7 @@ public class Animal {
 
     // Método equals, compara dos objetos Animal
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animal animal = (Animal) o;
