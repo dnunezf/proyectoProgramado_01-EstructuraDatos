@@ -1,5 +1,8 @@
 /*CLASE ÁRBOL*/
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class Arbol {
     // ATRIBUTO QUE CORRESPONDE A LA RAÍZ DEL ÁRBOL
     private Nodo nodoRaiz;
@@ -36,8 +39,64 @@ public class Arbol {
         nodoRaiz = new Nodo(new Animal("Ave"), reptil, aguila);
     }
 
-    // MÉTODO PARA INSERTAR LOS ANIMALES AL ÁRBOL
-    public void insertar() {
+    // MÉTODOS PARA INSERTAR ANIMALES AL ÁRBOL
+    public void insertar() throws Exception {
+        //Siempre se empieza el proceso desde la raíz
+        insertarRecursivo(nodoRaiz);
+    }
+
+    //Es un método privado, ya que solo se puede usar dentro de la clase en la que está definido
+    private void insertarRecursivo(Nodo padre) throws Exception {
+        //Variables utilizadas para recibir la respuesta del usuario
+        int respuesta;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        //Se le pide al usuario que inserte una respuesta
+        System.out.println("Su animal tiene la siguiente característica o es el siguiente: " + padre.getAnimal().getNombre() + "\n1:Si 0:No");
+        try {
+            //Se lee la respuesta del usuario y se almacena como un número entero mediante el método Integer.parseInt
+            respuesta = Integer.parseInt(br.readLine());
+
+            //Control que verifica si la respuesta es diferente de 0 o 1
+            if (respuesta < 0 || respuesta > 1) {
+                throw new Exception("Respuesta inválida");
+            }
+
+            //Variables utilizadas para hacer el cambio de orden en los nodos cuando se inserta un animal
+            String nombreTemporal;
+            String caracteristica;
+            String nombre;
+
+            if (respuesta == 0) {
+                if (padre.getHijoIzquierdo() == null && padre.getHijoDerecho() == null) {
+                    //Se le preguntan los datos del animal para agregar los nuevos nodos al árbol
+                    System.out.println("Entonces, dígame una característica única del animal que está pensando:");
+                    caracteristica = br.readLine();
+                    System.out.println("Ahora, dígame el nombre del animal que está pensando:");
+                    nombre = br.readLine();
+
+                    //Se realiza el cambio de orden y se insertan los nuevos nodos
+                    nombreTemporal = padre.getAnimal().getNombre();
+                    padre.setAnimal(new Animal(caracteristica));
+                    padre.setHijoIzquierdo(new Nodo(new Animal(nombreTemporal)));
+                    padre.setHijoDerecho(new Nodo(new Animal(nombre)));
+                } else {
+                    //Si no es una hoja se llama al método recursivamente para que siga con el nodo hijo izquierdo
+                    insertarRecursivo(padre.getHijoIzquierdo());
+                }
+            } else {
+                if (padre.getHijoDerecho() == null && padre.getHijoIzquierdo() == null) {
+                    //Si es una hoja y la respuesta es afirmativa, entonces significa que ya se adivinó el animal
+                    System.out.println("¡Adiviné! El animal en el que estaba pensando es un/una " + padre.getAnimal().getNombre());
+                } else {
+                    //Si no es una hoja se llama al método recursivamente para que siga con el nodo hijo derecho
+                    insertarRecursivo(padre.getHijoDerecho());
+                }
+            }
+            //Control que verifica si la respuesta es un número
+        } catch (NumberFormatException e) {
+            System.out.println("Respuesta inválida");
+        }
     }
 
     // MÉTODO PARA CALCULAR Y OBTENER LA ALTURA DEL ÁRBOL
@@ -62,8 +121,7 @@ public class Arbol {
     }
 
     // MÉTODO PARA IMPRIMIR LOS NIVELES DEL ÁRBOL
-    public void imprimirNiveles()
-    {
+    public void imprimirNiveles() {
         // Primero, calculamos la altura del árbol
         alturaArbol = calcularAltura();
 
@@ -71,8 +129,7 @@ public class Arbol {
         nivelesArbol = new String[alturaArbol + 1];
 
         // Inicializa cada nivel como una cadena vacía
-        for (int i = 0; i < nivelesArbol.length; i++)
-        {
+        for (int i = 0; i < nivelesArbol.length; i++) {
             nivelesArbol[i] = "";
         }
 
