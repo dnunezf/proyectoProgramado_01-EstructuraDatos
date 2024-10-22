@@ -2,7 +2,7 @@
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements Comparable<Animal> {
     // Atributos de la clase Animal
     private Integer codigo;
     private String nombre;
@@ -10,6 +10,11 @@ public class Animal {
     // Constructor
     public Animal(String nombre) {
         this.codigo = 0; // Inicializado en 0
+        this.nombre = nombre;
+    }
+
+    public Animal(Integer codigo, String nombre) {
+        this.codigo = codigo;
         this.nombre = nombre;
     }
 
@@ -34,9 +39,9 @@ public class Animal {
     // Método toString
     @Override
     public String toString() {
-        return "Animal{" +
-                "nombre='" + nombre + '\'' +
-                ", codigo=" + codigo +
+        return "Animal {" +
+                "nombre = " + nombre +
+                ", código = " + codigo +
                 '}';
     }
 
@@ -53,5 +58,11 @@ public class Animal {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
+    }
+
+    // Método compareTo, compara dos objetos Animal por su código
+    @Override
+    public int compareTo(Animal animal) {
+        return this.codigo.compareTo(animal.codigo);
     }
 }

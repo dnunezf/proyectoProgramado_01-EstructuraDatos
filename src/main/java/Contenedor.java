@@ -1,4 +1,4 @@
-public class Contenedor<T> {
+public class Contenedor<T extends Animal> {
     private NodoD<T> dummy;
     private NodoD<T> back;
 
@@ -28,8 +28,58 @@ public class Contenedor<T> {
     public void addLast(T elemento) {
     }
 
-    //MÉTODO QUE ORDENA LOS ANIMALES DE MENOR A MAYOR SEGÚN EL CÓDIGO
+    //MÉTODOS UTILIZADOS PARA ORDENAR LOS ANIMALES DE MENOR A MAYOR SEGÚN EL CÓDIGO
+    private void intercambiar(NodoD<T> a, NodoD<T> b) {
+        // Intercambia los datos del nodo a con el b
+        T temp = a.getDato();
+        a.setDato(b.getDato());
+        b.setDato(temp);
+    }
+
+    private NodoD<T> particion(NodoD<T> izquierdo, NodoD<T> derecho) {
+        // Establece el pivote como el dato del nodo derecho
+        T pivote = derecho.getDato();
+
+        // Puntero para colocar los elementos menores
+        NodoD<T> i = izquierdo.getAnterior();
+
+        // Recorre la lista desde el nodo "izquierdo" hasta el nodo "derecho"
+        for (NodoD<T> j = izquierdo; j != derecho; j = j.getSiguiente()) {
+
+            // Si el código del dato actual es menor o igual que el del pivote
+            if (j.getDato().getCodigo() <= pivote.getCodigo()) {
+                // Mueve `i` hacia adelante y realiza el intercambio con `j`
+                i = (i == null) ? izquierdo : i.getSiguiente();
+                intercambiar(i, j);
+            }
+        }
+
+        // Mueve `i` a la posición correcta del pivote
+        i = (i == null) ? izquierdo : i.getSiguiente();
+
+        // Intercambia el dato del pivote con el dato de `i`
+        intercambiar(i, derecho);
+
+        // Retorna la posición del pivote
+        return i;
+    }
+
+    private void quicksort(NodoD<T> izquierdo, NodoD<T> derecho) {
+        // Caso base: detiene la recursión cuando el rango es inválido
+        if (izquierdo != null && derecho != null && izquierdo != derecho && izquierdo != derecho.getSiguiente()) {
+            // Realiza la partición de la lista y obtiene el nodo pivote
+            NodoD<T> pivot = particion(izquierdo, derecho);
+
+            // Ordena recursivamente la mitad izquierda
+            quicksort(izquierdo, pivot.getAnterior());
+
+            // Ordena recursivamente la mitad derecha
+            quicksort(pivot.getSiguiente(), derecho);
+        }
+    }
+
     public void sort() {
+        quicksort(dummy.getSiguiente(), back.getAnterior());
     }
 
     //MÉTODO QUE INVIERTE TODOS LOS ELEMENTOS
