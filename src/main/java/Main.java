@@ -1,9 +1,12 @@
-/*MAIN
- *
+/* MAIN
+
  * REFERENCIAS (BIBLIOGRAFÍAS):
  * (2019, 04 abril). JAVA - Recorrido de árboles binarios por niveles | Sergio Ramirez
  * https://youtu.be/RyKvFhoP200?si=1iKV8XVHpqXaKMhe
- * */
+ * (2015, 26 enero). How does "\\d" work in java?
+ * https://stackoverflow.com/questions/28145881/how-does-d-work-in-java/28145978#28145978
+
+*/
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

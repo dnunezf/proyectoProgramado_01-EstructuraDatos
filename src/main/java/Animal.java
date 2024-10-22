@@ -49,9 +49,9 @@ public class Animal {
         return Objects.equals(nombre, animal.nombre) && Objects.equals(codigo, animal.codigo);
     }
 
-    // Método hashCode, cambiaremos en parte II...
+    // Método hashCode, genera un código hash basado en el código del objeto Animal
     @Override
     public int hashCode() {
-        return Objects.hash(nombre, codigo);
+        return Objects.hash(codigo);
     }
 }

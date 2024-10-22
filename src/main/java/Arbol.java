@@ -70,10 +70,19 @@ public class Arbol {
             if (respuesta == 0) {
                 if (padre.getHijoIzquierdo() == null && padre.getHijoDerecho() == null) {
                     //Se le preguntan los datos del animal para agregar los nuevos nodos al árbol
-                    System.out.println("Entonces, dígame una característica única del animal que está pensando:");
-                    caracteristica = br.readLine();
-                    System.out.println("Ahora, dígame el nombre del animal que está pensando:");
+                    System.out.println("Entonces, dígame el nombre del animal que está pensando:");
                     nombre = br.readLine();
+                    //Se vertifica que no hayan números dentro del nombre del animal
+                    if(contieneNumeros(nombre)){
+                        throw new Exception("El nombre no puede contener números");
+                    }
+
+                    System.out.println("Ahora, dígame una característica única del animal que está pensando:");
+                    caracteristica = br.readLine();
+                    //Se vertifica que no hayan números dentro de la característica del animal
+                    if(contieneNumeros(caracteristica)){
+                        throw new Exception("La característica no puede contener números");
+                    }
 
                     //Se realiza el cambio de orden y se insertan los nuevos nodos
                     nombreTemporal = padre.getAnimal().getNombre();
@@ -93,10 +102,15 @@ public class Arbol {
                     insertarRecursivo(padre.getHijoDerecho());
                 }
             }
-            //Control que verifica si la respuesta es un número
+            //Control que verifica si la respuesta es o no un número
         } catch (NumberFormatException e) {
             System.out.println("Respuesta inválida");
         }
+    }
+
+    // MÉTODO PARA VERIFICAR SI UN STRING CONTIENE ALGÚN NÚMERO
+    private boolean contieneNumeros(String entrada) {
+        return entrada.matches(".*\\d.*");
     }
 
     // MÉTODO PARA CALCULAR Y OBTENER LA ALTURA DEL ÁRBOL
@@ -142,7 +156,7 @@ public class Arbol {
         }
     }
 
-    // MÉTODO RECURSIVO PRIVADO PARA LLENAR EL ARREGLO DE NIVELES DEL ÁRBO
+    // MÉTODO RECURSIVO PRIVADO PARA LLENAR EL ARREGLO DE NIVELES DEL ÁRBOl
     // MÉTODO AUXILIAR
     private void llenarNivelesRecursivamente(Nodo nodoActual, int nivelActual) {
         if (nodoActual != null) {
