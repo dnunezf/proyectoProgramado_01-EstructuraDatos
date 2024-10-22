@@ -7,7 +7,11 @@
  * https://stackoverflow.com/questions/28145881/how-does-d-work-in-java/28145978#28145978
  * (2024, 17 setiembre). QuickSort on Doubly Linked List
  * https://www.geeksforgeeks.org/quicksort-for-linked-list/
-
+ * (2024). JAVA program for Insertion in the End of a Doubly Linked List
+ * https://prepinsta.com/java-program/for-insertion-at-the-end-in-doubly-linked-list/
+ * (2023, 18 abril). Java Program For Reversing A Doubly Linked List
+ * https://www.geeksforgeeks.org/java-program-for-reversing-a-doubly-linked-list/
+ *
 */
 
 import java.io.BufferedReader;

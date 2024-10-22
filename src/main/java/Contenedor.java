@@ -25,7 +25,32 @@ public class Contenedor<T extends Animal> {
     }
 
     //MÉTODO PARA AÑADIR EN LA ÚLTIMA POSICIÓN DE LA LISTA
-    public void addLast(T elemento) {
+    public void addLast(T elemento)
+    {
+        // Creamos un nuevo nodo, con el elemento y referencias nulas
+        NodoD<T> newNodo = new NodoD<>(elemento, null, null);
+
+        // Si la lista es vacia, el nuevo nodo será el único entre dummy y back
+        if (dummy.getSiguiente() == back)
+        {
+            dummy.setSiguiente(newNodo);
+
+            newNodo.setAnterior(dummy);
+            newNodo.setSiguiente(back);
+
+            back.setAnterior(newNodo);
+
+            return;
+        }
+
+        // Encontramos el nodo anterior a back
+        NodoD<T> lastNodo = back.getAnterior();
+
+        // Aactualizamos los punteros del nuevo nodo y ultimo nodo
+        lastNodo.setSiguiente(newNodo);
+        newNodo.setAnterior(lastNodo);
+        newNodo.setSiguiente(back);
+        back.setAnterior(newNodo);
     }
 
     //MÉTODOS UTILIZADOS PARA ORDENAR LOS ANIMALES DE MENOR A MAYOR SEGÚN EL CÓDIGO
@@ -83,7 +108,34 @@ public class Contenedor<T extends Animal> {
     }
 
     //MÉTODO QUE INVIERTE TODOS LOS ELEMENTOS
-    public void reverse() {
+    public void reverse()
+    {
+        // Si la lista es vacía o tiene solo un elemento, no se retorna nada
+        if (dummy.getSiguiente() == back || dummy.getSiguiente().getSiguiente() == back) {
+            return;
+        }
+
+        NodoD<T> current = dummy.getSiguiente();
+        NodoD<T> temp = null;
+
+        // Intercambiamos los punteros anterior y siguiente
+        while (current != back)
+        {
+            temp = current.getAnterior();
+
+            current.setAnterior(current.getSiguiente());
+            current.setSiguiente(temp);
+
+            current = current.getAnterior();
+        }
+
+        // Actualizamos dummy y back, después de invertir la lista
+        temp = dummy.getSiguiente();
+
+        dummy.setSiguiente(back.getAnterior());
+        dummy.getSiguiente().setAnterior(dummy);
+        back.setAnterior(temp);
+        back.getAnterior().setSiguiente(back);
     }
 
     //MÉTODO QUE MUESTRA LOS ELEMENTOS DE LA LISTA
