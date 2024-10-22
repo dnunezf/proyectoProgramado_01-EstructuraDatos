@@ -64,5 +64,13 @@ public class Main {
         System.out.println("\nPrueba de ordenamiento\n");
         animales.sort();
         animales.display();
+
+        System.out.println("\nAñadir un nuevo animal al final:");
+        animales.addLast(new Animal(3, "Elefante"));
+        animales.display();
+
+        System.out.println("\nPrueba de invertir la lista:");
+        animales.reverse();
+        animales.display();
     }
 }
