@@ -24,7 +24,10 @@ public class Animal implements Comparable<Animal> {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(Integer codigo) throws Exception {
+        if (codigo < 0) {
+            throw new Exception("El código no puede ser negativo");
+        }
         this.codigo = codigo;
     }
 

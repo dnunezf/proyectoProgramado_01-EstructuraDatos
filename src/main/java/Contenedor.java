@@ -46,7 +46,7 @@ public class Contenedor<T extends Animal> {
         // Encontramos el nodo anterior a back
         NodoD<T> lastNodo = back.getAnterior();
 
-        // Aactualizamos los punteros del nuevo nodo y ultimo nodo
+        // Actualizamos los punteros del nuevo nodo y ultimo nodo
         lastNodo.setSiguiente(newNodo);
         newNodo.setAnterior(lastNodo);
         newNodo.setSiguiente(back);

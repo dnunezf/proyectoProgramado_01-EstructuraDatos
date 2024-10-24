@@ -2,6 +2,9 @@
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import com.google.gson.Gson;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class Arbol {
     // ATRIBUTO QUE CORRESPONDE A LA RAÍZ DEL ÁRBOL
@@ -15,28 +18,30 @@ public class Arbol {
 
     // Constructor
     public Arbol() {
-        // Creación de los animales
-        Nodo culebra = new Nodo(new Animal("Culebra"));
-        Nodo rana = new Nodo(new Animal("Rana"));
-        Nodo arana = new Nodo(new Animal("Araña"));
-        Nodo beta = new Nodo(new Animal("Beta"));
-        Nodo perro = new Nodo(new Animal("Perro"));
-        Nodo gato = new Nodo(new Animal("Gato"));
-        Nodo ballena = new Nodo(new Animal("Ballena"));
-        Nodo lagarto = new Nodo(new Animal("Lagarto"));
-        Nodo aguila = new Nodo(new Animal("Águila"));
+        // Esto ya no se utiliza debido a que se lee del archivo JSON
 
-        // Creación de las características
-        Nodo anfibio = new Nodo(new Animal("Anfibio"), culebra, rana);
-        Nodo invertebrado = new Nodo(new Animal("Invertebrado"), anfibio, arana);
-        Nodo pez = new Nodo(new Animal("Pez"), invertebrado, beta);
-        Nodo maulla = new Nodo(new Animal("Maulla"), perro, gato);
-        Nodo acuatico = new Nodo(new Animal("Acuático"), maulla, ballena);
-        Nodo mamifero = new Nodo(new Animal("Mamífero"), pez, acuatico);
-        Nodo reptil = new Nodo(new Animal("Reptil"), mamifero, lagarto);
-
-        // Asignar la raíz
-        nodoRaiz = new Nodo(new Animal("Ave"), reptil, aguila);
+//        // Creación de los animales
+//        Nodo culebra = new Nodo(new Animal("Culebra"));
+//        Nodo rana = new Nodo(new Animal("Rana"));
+//        Nodo arana = new Nodo(new Animal("Araña"));
+//        Nodo beta = new Nodo(new Animal("Beta"));
+//        Nodo perro = new Nodo(new Animal("Perro"));
+//        Nodo gato = new Nodo(new Animal("Gato"));
+//        Nodo ballena = new Nodo(new Animal("Ballena"));
+//        Nodo lagarto = new Nodo(new Animal("Lagarto"));
+//        Nodo aguila = new Nodo(new Animal("Águila"));
+//
+//        // Creación de las características
+//        Nodo anfibio = new Nodo(new Animal("Anfibio"), culebra, rana);
+//        Nodo invertebrado = new Nodo(new Animal("Invertebrado"), anfibio, arana);
+//        Nodo pez = new Nodo(new Animal("Pez"), invertebrado, beta);
+//        Nodo maulla = new Nodo(new Animal("Maulla"), perro, gato);
+//        Nodo acuatico = new Nodo(new Animal("Acuático"), maulla, ballena);
+//        Nodo mamifero = new Nodo(new Animal("Mamífero"), pez, acuatico);
+//        Nodo reptil = new Nodo(new Animal("Reptil"), mamifero, lagarto);
+//
+//        // Asignar la raíz
+//        nodoRaiz = new Nodo(new Animal("Ave"), reptil, aguila);
     }
 
     // MÉTODOS PARA INSERTAR ANIMALES AL ÁRBOL
@@ -166,6 +171,41 @@ public class Arbol {
             // Continuar con los nodos hijos
             llenarNivelesRecursivamente(nodoActual.getHijoIzquierdo(), nivelActual + 1);
             llenarNivelesRecursivamente(nodoActual.getHijoDerecho(), nivelActual + 1);
+        }
+    }
+
+    // MÉTODO PARA GUARDAR EL ÁRBOL EN UN ARCHIVO JSON
+    public void guardarArbol() {
+        // Se crea una instancia de Gson encargada de convertir los objetos a JSON
+        Gson gson = new Gson();
+
+        // Se crea un FileWriter para escribir en el archivo definido como arbol.json
+        // El Try With Resources asegura que se cierre automáticamente el objeto writer al finalizar
+        try (FileWriter writer = new FileWriter("arbol.json")) {
+
+            // Se convierte el nodo raíz junto con sus nodos asociados a JSON y se escribe
+            // en el archivo con el objeto writer
+            gson.toJson(nodoRaiz, writer);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // MÉTODO PARA CARGAR EL ÁRBOL DESDE UN ARCHIVO JSON
+    public void cargarArbol() {
+        // Se crea una instancia de Gson encargada de convertir de JSON a un objeto
+        Gson gson = new Gson();
+
+        // Se crea un FileReader para leer el archivo definido como arbol.json
+        // El Try With Resources asegura que se cierre automáticamente el objeto reader al finalizar
+        try (FileReader reader = new FileReader("arbol.json")) {
+
+            // Se toma lo que leyó el objeto reader, se convierte en un objeto Nodo y se le asigna a nodoRaiz
+            nodoRaiz = gson.fromJson(reader, Nodo.class);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

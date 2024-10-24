@@ -11,7 +11,13 @@
  * https://prepinsta.com/java-program/for-insertion-at-the-end-in-doubly-linked-list/
  * (2023, 18 abril). Java Program For Reversing A Doubly Linked List
  * https://www.geeksforgeeks.org/java-program-for-reversing-a-doubly-linked-list/
- *
+ * (2023, 30 setiembre). ⌛Como Usar FILEWRITER Y FILEREADER con JAVA FÁCIL Y RÁPIDO| ACCESO A DATOS | DAM
+ * https://youtu.be/hwHzl9POl40
+ * (2022, 5 mayo). Try With Resources vs Try-Catch
+ * https://stackoverflow.com/questions/26516020/try-with-resources-vs-try-catch
+ * (2020, 10 julio). What is JSON - Convert Java Object To JSON using GSON - GSON tutorial
+ * https://youtu.be/QGWSk5U0tgc
+
 */
 
 import java.io.BufferedReader;
@@ -20,6 +26,8 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) {
         Arbol arbol = new Arbol();
+        arbol.cargarArbol();
+
         System.out.println("\nÁrbol inicial:\n");
         arbol.imprimirNiveles();
         System.out.println();
@@ -46,6 +54,19 @@ public class Main {
             }
             System.out.println("Árbol con los cambios:\n");
             arbol.imprimirNiveles();
+        }
+
+        //PRUEBA DEL GUARDAR
+        int guardar;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Desea guardar el árbol: " + "\n1:Si 0:No");
+        try {
+            guardar = Integer.parseInt(br.readLine());
+            if (guardar == 1) {
+                arbol.guardarArbol();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
         System.out.println("\nPrueba Lista Doblemente Enlazada");
