@@ -20,53 +20,61 @@
 
 */
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import javax.swing.*;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main
+{
+    public static void main(String[] args)
+    {
         Arbol arbol = new Arbol();
         arbol.cargarArbol();
 
-        System.out.println("\nÁrbol inicial:\n");
+        JOptionPane.showMessageDialog(null, "Árbol inicial:", "Árbol", JOptionPane.INFORMATION_MESSAGE);
         arbol.imprimirNiveles();
         System.out.println();
 
         //PRUEBA DEL INSERTAR
         boolean jugar = true;
-        while (jugar) {
+
+        while (jugar)
+        {
             try {
                 arbol.insertar();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             int respuesta;
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Desea volver a jugar: " + "\n1:Si 0:No");
+
             try {
-                respuesta = Integer.parseInt(br.readLine());
+                String respuestaUser = JOptionPane.showInputDialog(null, "Desea volver a jugar:\n1:Si 0:No", "Jugar", JOptionPane.QUESTION_MESSAGE);
+                respuesta = Integer.parseInt(respuestaUser);
+
                 if (respuesta == 0) {
                     jugar = false;
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-            System.out.println("Árbol con los cambios:\n");
+            JOptionPane.showMessageDialog(null, "Árbol con los cambios:", "Árbol", JOptionPane.INFORMATION_MESSAGE);
             arbol.imprimirNiveles();
         }
 
         //PRUEBA DEL GUARDAR
         int guardar;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Desea guardar el árbol: " + "\n1:Si 0:No");
-        try {
-            guardar = Integer.parseInt(br.readLine());
-            if (guardar == 1) {
+
+        try
+        {
+            String guardarUser = JOptionPane.showInputDialog(null, "Desea guardar el árbol:\n1:Si 0:No", "Guardar", JOptionPane.QUESTION_MESSAGE);
+            guardar = Integer.parseInt(guardarUser);
+
+            if (guardar == 1)
+            {
                 arbol.guardarArbol();
+                JOptionPane.showMessageDialog(null, "Árbol guardado con éxito.", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         System.out.println("\nPrueba Lista Doblemente Enlazada");

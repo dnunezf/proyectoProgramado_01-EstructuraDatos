@@ -3,6 +3,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import com.google.gson.Gson;
+import javax.swing.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 
@@ -54,13 +55,16 @@ public class Arbol {
     private void insertarRecursivo(Nodo padre) throws Exception {
         //Variables utilizadas para recibir la respuesta del usuario
         int respuesta;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         //Se le pide al usuario que inserte una respuesta
-        System.out.println("Su animal tiene la siguiente característica o es el siguiente: " + padre.getAnimal().getNombre() + "\n1:Si 0:No");
+        String mensaje = "Su animal tiene la siguiente característica o es el siguiente: "
+                + padre.getAnimal().getNombre() + "\n1:Si 0:No";
+
+        String respuestaUser = JOptionPane.showInputDialog(null, mensaje, "Pregunta", JOptionPane.QUESTION_MESSAGE);
+
         try {
             //Se lee la respuesta del usuario y se almacena como un número entero mediante el método Integer.parseInt
-            respuesta = Integer.parseInt(br.readLine());
+            respuesta = Integer.parseInt(respuestaUser);
 
             //Control que verifica si la respuesta es diferente de 0 o 1
             if (respuesta < 0 || respuesta > 1) {
@@ -75,16 +79,15 @@ public class Arbol {
             if (respuesta == 0) {
                 if (padre.getHijoIzquierdo() == null && padre.getHijoDerecho() == null) {
                     //Se le preguntan los datos del animal para agregar los nuevos nodos al árbol
-                    System.out.println("Entonces, dígame el nombre del animal que está pensando:");
-                    nombre = br.readLine();
+                    nombre = JOptionPane.showInputDialog(null, "Dígame el nombre del animal que está pensando:", "Nuevo Animal", JOptionPane.QUESTION_MESSAGE);
                     //Se vertifica que no hayan números dentro del nombre del animal
                     if(contieneNumeros(nombre)){
                         throw new Exception("El nombre no puede contener números");
                     }
 
-                    System.out.println("Ahora, dígame una característica única del animal que está pensando:");
-                    caracteristica = br.readLine();
-                    //Se vertifica que no hayan números dentro de la característica del animal
+                    caracteristica = JOptionPane.showInputDialog(null, "Dígame una característica única del animal:", "Nueva Característica", JOptionPane.QUESTION_MESSAGE);
+
+                    //Se verifica que no hayan números dentro de la característica del animal
                     if(contieneNumeros(caracteristica)){
                         throw new Exception("La característica no puede contener números");
                     }
@@ -101,7 +104,7 @@ public class Arbol {
             } else {
                 if (padre.getHijoDerecho() == null && padre.getHijoIzquierdo() == null) {
                     //Si es una hoja y la respuesta es afirmativa, entonces significa que ya se adivinó el animal
-                    System.out.println("¡Adiviné! El animal en el que estaba pensando es un/una " + padre.getAnimal().getNombre());
+                    JOptionPane.showMessageDialog(null, "¡Adiviné! El animal en el que estaba pensando es un/una " + padre.getAnimal().getNombre(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     //Si no es una hoja se llama al método recursivamente para que siga con el nodo hijo derecho
                     insertarRecursivo(padre.getHijoDerecho());
@@ -109,7 +112,7 @@ public class Arbol {
             }
             //Control que verifica si la respuesta es o no un número
         } catch (NumberFormatException e) {
-            System.out.println("Respuesta inválida");
+            JOptionPane.showMessageDialog(null, "Respuesta inválida", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -188,7 +191,7 @@ public class Arbol {
             gson.toJson(nodoRaiz, writer);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -205,7 +208,7 @@ public class Arbol {
             nodoRaiz = gson.fromJson(reader, Nodo.class);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
