@@ -29,7 +29,7 @@ public class Main
         Arbol arbol = new Arbol();
         arbol.cargarArbol();
 
-        JOptionPane.showMessageDialog(null, "Árbol inicial:", "Árbol", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println("\nÁrbol inicial:\n");
         arbol.imprimirNiveles();
         System.out.println();
 
@@ -56,7 +56,7 @@ public class Main
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-            JOptionPane.showMessageDialog(null, "Árbol con los cambios:", "Árbol", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Árbol con los cambios: ");
             arbol.imprimirNiveles();
         }
 
