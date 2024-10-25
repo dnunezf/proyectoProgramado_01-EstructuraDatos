@@ -11,21 +11,19 @@
  * https://prepinsta.com/java-program/for-insertion-at-the-end-in-doubly-linked-list/
  * (2023, 18 abril). Java Program For Reversing A Doubly Linked List
  * https://www.geeksforgeeks.org/java-program-for-reversing-a-doubly-linked-list/
- * (2023, 30 setiembre). ⌛Como Usar FILEWRITER Y FILEREADER con JAVA FÁCIL Y RÁPIDO| ACCESO A DATOS | DAM
+ * (2023, 30 setiembre). Como Usar FILEWRITER Y FILEREADER con JAVA FÁCIL Y RÁPIDO| ACCESO A DATOS | DAM
  * https://youtu.be/hwHzl9POl40
  * (2022, 5 mayo). Try With Resources vs Try-Catch
  * https://stackoverflow.com/questions/26516020/try-with-resources-vs-try-catch
  * (2020, 10 julio). What is JSON - Convert Java Object To JSON using GSON - GSON tutorial
  * https://youtu.be/QGWSk5U0tgc
 
-*/
+ */
 
 import javax.swing.*;
 
-public class Main
-{
-    public static void main(String[] args)
-    {
+public class Main {
+    public static void main(String[] args) {
         Arbol arbol = new Arbol();
         arbol.cargarArbol();
 
@@ -36,8 +34,7 @@ public class Main
         //PRUEBA DEL INSERTAR
         boolean jugar = true;
 
-        while (jugar)
-        {
+        while (jugar) {
             try {
                 arbol.insertar();
             } catch (Exception e) {
@@ -48,6 +45,10 @@ public class Main
 
             try {
                 String respuestaUser = JOptionPane.showInputDialog(null, "Desea volver a jugar:\n1:Si 0:No", "Jugar", JOptionPane.QUESTION_MESSAGE);
+                if (respuestaUser == "" || respuestaUser == null) {
+                    System.exit(0);
+                }
+
                 respuesta = Integer.parseInt(respuestaUser);
 
                 if (respuesta == 0) {
@@ -63,13 +64,16 @@ public class Main
         //PRUEBA DEL GUARDAR
         int guardar;
 
-        try
-        {
+        try {
             String guardarUser = JOptionPane.showInputDialog(null, "Desea guardar el árbol:\n1:Si 0:No", "Guardar", JOptionPane.QUESTION_MESSAGE);
+
+            if (guardarUser == "" || guardarUser == null) {
+                System.exit(0);
+            }
+
             guardar = Integer.parseInt(guardarUser);
 
-            if (guardar == 1)
-            {
+            if (guardar == 1) {
                 arbol.guardarArbol();
                 JOptionPane.showMessageDialog(null, "Árbol guardado con éxito.", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             }

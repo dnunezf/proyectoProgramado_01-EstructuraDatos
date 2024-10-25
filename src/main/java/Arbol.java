@@ -63,6 +63,11 @@ public class Arbol {
         String respuestaUser = JOptionPane.showInputDialog(null, mensaje, "Pregunta", JOptionPane.QUESTION_MESSAGE);
 
         try {
+
+            if (respuestaUser == "" || respuestaUser == null) {
+                System.exit(0);
+            }
+
             //Se lee la respuesta del usuario y se almacena como un número entero mediante el método Integer.parseInt
             respuesta = Integer.parseInt(respuestaUser);
 
