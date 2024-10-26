@@ -23,66 +23,22 @@
 import javax.swing.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        // CARGA LAS IMÁGENES DE NUESTRO PROGRAMA
+        ImageIcon icono = new ImageIcon("src/resources/animal.png");
+        ImageIcon icono2 = new ImageIcon("src/resources/bye.png");
+
+        // MENSAJE DE BIENVENIDA
+        JOptionPane.showMessageDialog(null,
+                "Bienvenido al programa Reino Animal",
+                "Bienvenida", JOptionPane.INFORMATION_MESSAGE, icono);
+
         Arbol arbol = new Arbol();
         arbol.cargarArbol();
-
-        System.out.println("\nÁrbol inicial:\n");
-        arbol.imprimirNiveles();
-        System.out.println();
-
-        //PRUEBA DEL INSERTAR
-        boolean jugar = true;
-
-        while (jugar) {
-            try {
-                arbol.insertar();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-            int respuesta;
-
-            try {
-                String respuestaUser = JOptionPane.showInputDialog(null, "Desea volver a jugar:\n1:Si 0:No", "Jugar", JOptionPane.QUESTION_MESSAGE);
-                if (respuestaUser == "" || respuestaUser == null) {
-                    System.exit(0);
-                }
-
-                respuesta = Integer.parseInt(respuestaUser);
-
-                if (respuesta == 0) {
-                    jugar = false;
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            System.out.println("Árbol con los cambios: ");
-            arbol.imprimirNiveles();
-        }
-
-        //PRUEBA DEL GUARDAR
-        int guardar;
-
-        try {
-            String guardarUser = JOptionPane.showInputDialog(null, "Desea guardar el árbol:\n1:Si 0:No", "Guardar", JOptionPane.QUESTION_MESSAGE);
-
-            if (guardarUser == "" || guardarUser == null) {
-                System.exit(0);
-            }
-
-            guardar = Integer.parseInt(guardarUser);
-
-            if (guardar == 1) {
-                arbol.guardarArbol();
-                JOptionPane.showMessageDialog(null, "Árbol guardado con éxito.", "Guardar", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        System.out.println("\nPrueba Lista Doblemente Enlazada");
         Contenedor<Animal> animales = new Contenedor<>();
+
+        // Configuración inicial de la lista de animales.
         animales.addFirst(new Animal(5, "Gato"));
         animales.addFirst(new Animal(4, "Ballena"));
         animales.addFirst(new Animal(5, "Araña"));
@@ -93,8 +49,115 @@ public class Main {
         animales.addFirst(new Animal(2, "Lagarto"));
         animales.addFirst(new Animal(6, "Culebra"));
 
+        boolean continuar = true;
+
+        // MENÚ DE OPCIONES DEL SISTEMA
+        while (continuar) {
+            String opcion = JOptionPane.showInputDialog(null,
+                    "Seleccione una opción:\n" +
+                            "1: Imprimir el árbol\n" +
+                            "2: Jugar\n" +
+                            "3: Guardar el árbol\n" +
+                            "4: Proyectar las listas\n" +
+                            "0: Salir",
+                    "Menú de Opciones",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (opcion == null || opcion.equals("")) {
+                continuar = false;
+                break;
+            }
+
+            switch (opcion) {
+                case "1":
+                    System.out.println("\nÁrbol completo:");
+                    arbol.imprimirNiveles();
+                    break;
+
+                case "2":
+                    jugar(arbol);
+                    break;
+
+                case "3":
+                    guardarArbol(arbol);
+                    break;
+
+                case "4":
+                    proyectarListas(animales);
+                    break;
+
+                case "0":
+                    continuar = false;
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+
+        // MENSAJE DE DESPEDIDA
+        JOptionPane.showMessageDialog(null,
+                "Gracias por usar el programa Reino Animal. ¡Hasta la próxima!",
+                "Despedida", JOptionPane.INFORMATION_MESSAGE, icono2);
+    }
+
+    // MÉTODO QUE PERMITE AL USUARIO JUGAR
+    public static void jugar(Arbol arbol)
+    {
+        boolean jugar = true;
+
+        while (jugar)
+        {
+            try {
+                arbol.insertar();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            String respuestaUser = JOptionPane.showInputDialog(null, "Desea volver a jugar:\n1:Si 0:No", "Jugar", JOptionPane.QUESTION_MESSAGE);
+
+            if (respuestaUser == null || respuestaUser.equals("")) {
+                jugar = false;
+                break;
+            }
+
+            int respuesta = Integer.parseInt(respuestaUser);
+
+            if (respuesta == 0) {
+                jugar = false;
+            }
+        }
+    }
+
+    // MÉTODO QUE PERMITE GUARDAR O NO EL ÁRBOL, LUEGO DE JUGAR
+    public static void guardarArbol(Arbol arbol) {
+        try
+        {
+            String guardarUser = JOptionPane.showInputDialog(null, "Desea guardar el árbol:\n1:Si 0:No", "Guardar", JOptionPane.QUESTION_MESSAGE);
+
+            if (guardarUser == null || guardarUser.equals("")) {
+                return;
+            }
+
+            int guardar = Integer.parseInt(guardarUser);
+
+            if (guardar == 1) {
+                arbol.guardarArbol();
+                JOptionPane.showMessageDialog(null, "Árbol guardado con éxito.", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Proyeccion de listas
+    public static void proyectarListas(Contenedor<Animal> animales)
+    {
+        System.out.println("\nProyección de la Lista de Animales:");
         animales.display();
-        System.out.println("\nPrueba de ordenamiento\n");
+
+        System.out.println("\nPrueba de ordenamiento:");
         animales.sort();
         animales.display();
 
