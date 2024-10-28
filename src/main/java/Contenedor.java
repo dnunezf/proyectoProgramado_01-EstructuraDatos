@@ -1,4 +1,6 @@
-public class Contenedor<T extends Animal> {
+import java.util.Iterator;
+
+public class Contenedor<T extends Animal> implements Iterable<T> {
     private NodoD<T> dummy;
     private NodoD<T> back;
 
@@ -149,5 +151,30 @@ public class Contenedor<T extends Animal> {
             System.out.println(temp.getDato().toString());
             temp = temp.getSiguiente();
         }
+    }
+
+    // SE IMPLEMENTA EL ITERATOR, PARA UTILIZAR EL BUCLE FOR-EACH SOBRE LA INSTANCIA Contenedor<Animal>
+    @Override
+    public Iterator<T> iterator()
+    {
+        return new Iterator<T>()
+        {
+            private NodoD<T> current = dummy.getSiguiente();
+
+            @Override
+            public boolean hasNext() {
+                return current != back; // Comprueba si hay más nodos
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new IllegalStateException("No hay más elementos en la lista.");
+                }
+                T data = current.getDato();
+                current = current.getSiguiente();
+                return data;
+            }
+        };
     }
 }
