@@ -37,7 +37,6 @@ public class Main {
         Arbol arbol = new Arbol();
         arbol.cargarArbol();
         Contenedor<Animal> animales = new Contenedor<>();
-        HashMap hashMap = new HashMap(10);
 
         // Configuración inicial de la lista de animales.
         animales.addFirst(new Animal(5, "Gato"));
@@ -50,16 +49,6 @@ public class Main {
         animales.addFirst(new Animal(2, "Lagarto"));
         animales.addFirst(new Animal(6, "Culebra"));
 
-        // INSERTAMOS ANIMALES EN EL HASHMAP
-        for (Animal animal : animales) {
-            Contenedor<Animal> caracteristicas = new Contenedor<>();
-            // Suponiendo que cada animal tiene una lista de características.
-            caracteristicas.addFirst(animal); // Ahora estamos insertando el animal en el contenedor
-            caracteristicas.addFirst(new Animal(0, "Color: Desconocido")); // Ejemplo de características
-            caracteristicas.addFirst(new Animal(0, "Hábitat: Desconocido")); // Otro ejemplo
-            hashMap.insertar(animal.getNombre(), caracteristicas); // Insertar en el HashMap
-        }
-
         boolean continuar = true;
 
         // MENÚ DE OPCIONES DEL SISTEMA
@@ -70,7 +59,6 @@ public class Main {
                             "2: Jugar\n" +
                             "3: Guardar el árbol\n" +
                             "4: Proyectar las listas\n" +
-                            "5: Buscar características de un animal\n" +
                             "0: Salir",
                     "Menú de Opciones",
                     JOptionPane.QUESTION_MESSAGE);
@@ -96,14 +84,6 @@ public class Main {
 
                 case "4":
                     proyectarListas(animales);
-                    break;
-
-                case "5":
-                    String nombreAnimal = JOptionPane.showInputDialog(null, "Ingrese el nombre del animal:", "Buscar características", JOptionPane.QUESTION_MESSAGE);
-
-                    if (nombreAnimal != null && !nombreAnimal.equals("")) {
-                        hashMap.features(nombreAnimal); // Llamar al método features del HashMap
-                    }
                     break;
 
                 case "0":
