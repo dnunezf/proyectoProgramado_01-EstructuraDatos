@@ -17,6 +17,7 @@
  * https://stackoverflow.com/questions/26516020/try-with-resources-vs-try-catch
  * (2020, 10 julio). What is JSON - Convert Java Object To JSON using GSON - GSON tutorial
  * https://youtu.be/QGWSk5U0tgc
+ * (2021, 14 junio). Map and HashMap in Java - Full Tutorial. https://youtu.be/H62Jfv1DJlU?si=xj2pa0fgjDzkYXio
 
  */
 
