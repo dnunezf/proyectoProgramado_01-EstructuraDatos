@@ -37,6 +37,7 @@ public class Main {
         Arbol arbol = new Arbol();
         arbol.cargarArbol();
         Contenedor<Animal> animales = new Contenedor<>();
+        Features features = new Features();  // Instancia de la clase Features, contiene el HashMap
 
         // Configuración inicial de la lista de animales.
         animales.addFirst(new Animal(5, "Gato"));
@@ -59,6 +60,7 @@ public class Main {
                             "2: Jugar\n" +
                             "3: Guardar el árbol\n" +
                             "4: Proyectar las listas\n" +
+                            "5: Buscar características de un animal\n" +
                             "0: Salir",
                     "Menú de Opciones",
                     JOptionPane.QUESTION_MESSAGE);
@@ -86,6 +88,17 @@ public class Main {
                     proyectarListas(animales);
                     break;
 
+                case "5":
+                    String animal = JOptionPane.showInputDialog("Ingrese el nombre del animal para buscar sus características:");
+
+                    if (animal != null && !animal.isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(null, features.features(animal), "Características", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Entrada no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+
                 case "0":
                     continuar = false;
                     break;
@@ -103,8 +116,7 @@ public class Main {
     }
 
     // MÉTODO QUE PERMITE AL USUARIO JUGAR
-    public static void jugar(Arbol arbol)
-    {
+    public static void jugar(Arbol arbol) {
         boolean jugar = true;
 
         while (jugar)
@@ -115,17 +127,35 @@ public class Main {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-            String respuestaUser = JOptionPane.showInputDialog(null, "Desea volver a jugar:\n1:Si 0:No", "Jugar", JOptionPane.QUESTION_MESSAGE);
+            boolean entradaValida = false;
 
-            if (respuestaUser == null || respuestaUser.equals("")) {
-                jugar = false;
-                break;
-            }
+            while (!entradaValida)
+            {
+                String respuestaUser = JOptionPane.showInputDialog(null, "Desea volver a jugar:\n1:Si 0:No", "Jugar", JOptionPane.QUESTION_MESSAGE);
 
-            int respuesta = Integer.parseInt(respuestaUser);
+                if (respuestaUser == null || respuestaUser.equals("")) {
+                    jugar = false;
+                    entradaValida = true;
+                    break;
+                }
 
-            if (respuesta == 0) {
-                jugar = false;
+                try {
+                    int respuesta = Integer.parseInt(respuestaUser);
+
+                    if (respuesta == 0) {
+                        jugar = false;
+                    } else if (respuesta == 1) {
+                        jugar = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Por favor ingrese 1 para Sí o 0 para No.", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+                        continue;
+                    }
+
+                    entradaValida = true;
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor ingrese 1 para Sí o 0 para No.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
