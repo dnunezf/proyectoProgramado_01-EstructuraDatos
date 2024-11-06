@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import javax.swing.*;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arbol {
     // ATRIBUTO QUE CORRESPONDE A LA RAÍZ DEL ÁRBOL
@@ -253,6 +255,27 @@ public class Arbol {
             // Recursión para los nodos hijos
             llenarContenedorConHojas(nodoActual.getHijoIzquierdo(), contenedor);
             llenarContenedorConHojas(nodoActual.getHijoDerecho(), contenedor);
+        }
+    }
+
+    public void llenarMapaConCaracteristicas(Features features) {
+        llenarMapaRecursivo(nodoRaiz, "", features);
+    }
+
+    // Método recursivo para llenar el mapa con todas las características de cada animal
+    private void llenarMapaRecursivo(Nodo nodo, String caracteristicas, Features features) {
+        if (nodo != null) {
+            // Si es una hoja, añadimos el animal y todas las características acumuladas al mapa
+            if (nodo.getHijoIzquierdo() == null && nodo.getHijoDerecho() == null) {
+                features.addAnimal(nodo.getAnimal().getNombre(), caracteristicas);
+            } else {
+                // Si no es hoja, continuamos el recorrido por el hijo derecho (camino "sí")
+                // Agregamos la característica actual al string acumulado
+                llenarMapaRecursivo(nodo.getHijoDerecho(), caracteristicas + nodo.getAnimal().getNombre() + " ", features);
+
+                // Continuamos por el hijo izquierdo sin añadir la característica actual (camino "no")
+                llenarMapaRecursivo(nodo.getHijoIzquierdo(), caracteristicas, features);
+            }
         }
     }
 }
