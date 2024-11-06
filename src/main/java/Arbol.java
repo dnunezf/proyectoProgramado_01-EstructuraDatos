@@ -220,7 +220,7 @@ public class Arbol {
     // Método para asignar un código a cada animal según su altura en el árbol
     private void asignarCodigo(Nodo nodoActual, int nivelActual) {
         if (nodoActual != null) {
-            // Asignar código al animal según el nivel (altura)
+            // Asignar código al animal según el nivel
             try {
                 nodoActual.getAnimal().setCodigo(nivelActual);
             } catch (Exception e) {
@@ -245,7 +245,7 @@ public class Arbol {
     // Método recursivo para agregar las hojas al contenedor
     private void llenarContenedorConHojas(Nodo nodoActual, Contenedor<Animal> contenedor) {
         if (nodoActual != null) {
-            // Si es una hoja (no tiene hijos), agregar al contenedor
+            // Si es una hoja se agrega al contenedor
             if (nodoActual.getHijoIzquierdo() == null && nodoActual.getHijoDerecho() == null) {
                 contenedor.addFirst(nodoActual.getAnimal());
             }
