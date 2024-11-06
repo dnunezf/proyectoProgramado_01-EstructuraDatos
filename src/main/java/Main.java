@@ -24,8 +24,7 @@
 import javax.swing.*;
 
 public class Main {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // CARGA LAS IMÁGENES DE NUESTRO PROGRAMA
         ImageIcon icono = new ImageIcon("src/resources/animal.png");
         ImageIcon icono2 = new ImageIcon("src/resources/bye.png");
@@ -40,17 +39,6 @@ public class Main {
         Contenedor<Animal> animales = new Contenedor<>();
         Features features = new Features();  // Instancia de la clase Features, contiene el HashMap
 
-        // Configuración inicial de la lista de animales.
-        animales.addFirst(new Animal(5, "Gato"));
-        animales.addFirst(new Animal(4, "Ballena"));
-        animales.addFirst(new Animal(5, "Araña"));
-        animales.addFirst(new Animal(5, "Perro"));
-        animales.addFirst(new Animal(6, "Rana"));
-        animales.addFirst(new Animal(1, "Águila"));
-        animales.addFirst(new Animal(4, "Beta"));
-        animales.addFirst(new Animal(2, "Lagarto"));
-        animales.addFirst(new Animal(6, "Culebra"));
-
         boolean continuar = true;
 
         // MENÚ DE OPCIONES DEL SISTEMA
@@ -60,8 +48,11 @@ public class Main {
                             "1: Imprimir el árbol\n" +
                             "2: Jugar\n" +
                             "3: Guardar el árbol\n" +
-                            "4: Proyectar las listas\n" +
-                            "5: Buscar características de un animal\n" +
+                            "4: Llenar la lista con los animales\n" +
+                            "5: Ordenar la lista\n" +
+                            "6: Invertir la lista\n" +
+                            "7: Mostrar la lista\n" +
+                            "8: Buscar características de un animal\n" +
                             "0: Salir",
                     "Menú de Opciones",
                     JOptionPane.QUESTION_MESSAGE);
@@ -84,22 +75,39 @@ public class Main {
                 case "3":
                     guardarArbol(arbol);
                     break;
-
                 case "4":
-                    proyectarListas(animales);
+                    arbol.llenarLista(animales);
+                    JOptionPane.showMessageDialog(null, "Se llenó la lista con éxito.", "Llenar la lista", JOptionPane.INFORMATION_MESSAGE);
                     break;
-
                 case "5":
+                    animales.sort();
+                    if (animales.estaVacia())
+                        JOptionPane.showMessageDialog(null, "Lista vacía.", "Ordenar la lista", JOptionPane.ERROR_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(null, "Lista ordenada con éxito.", "Ordenar la lista", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "6":
+                    animales.reverse();
+                    if (animales.estaVacia())
+                        JOptionPane.showMessageDialog(null, "Lista vacía.", "Invertir la lista", JOptionPane.ERROR_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(null, "Lista invertida con éxito.", "Invertir la lista", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "7":
+                    if (animales.estaVacia())
+                        JOptionPane.showMessageDialog(null, "Lista vacía.", "Mostrar la lista", JOptionPane.ERROR_MESSAGE);
+                    else
+                        animales.display();
+                    break;
+                case "8":
                     String animal = JOptionPane.showInputDialog("Ingrese el nombre del animal para buscar sus características:");
 
-                    if (animal != null && !animal.isEmpty())
-                    {
+                    if (animal != null && !animal.isEmpty()) {
                         JOptionPane.showMessageDialog(null, features.features(animal), "Características", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "Entrada no válida.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
-
                 case "0":
                     continuar = false;
                     break;
@@ -120,8 +128,7 @@ public class Main {
     public static void jugar(Arbol arbol) {
         boolean jugar = true;
 
-        while (jugar)
-        {
+        while (jugar) {
             try {
                 arbol.insertar();
             } catch (Exception e) {
@@ -130,8 +137,7 @@ public class Main {
 
             boolean entradaValida = false;
 
-            while (!entradaValida)
-            {
+            while (!entradaValida) {
                 String respuestaUser = JOptionPane.showInputDialog(null, "Desea volver a jugar:\n1:Si 0:No", "Jugar", JOptionPane.QUESTION_MESSAGE);
 
                 if (respuestaUser == null || respuestaUser.equals("")) {
@@ -163,8 +169,7 @@ public class Main {
 
     // MÉTODO QUE PERMITE GUARDAR O NO EL ÁRBOL, LUEGO DE JUGAR
     public static void guardarArbol(Arbol arbol) {
-        try
-        {
+        try {
             String guardarUser = JOptionPane.showInputDialog(null, "Desea guardar el árbol:\n1:Si 0:No", "Guardar", JOptionPane.QUESTION_MESSAGE);
 
             if (guardarUser == null || guardarUser.equals("")) {
@@ -183,8 +188,7 @@ public class Main {
     }
 
     // Proyeccion de listas
-    public static void proyectarListas(Contenedor<Animal> animales)
-    {
+    public static void proyectarListas(Contenedor<Animal> animales) {
         System.out.println("\nProyección de la Lista de Animales:");
         animales.display();
 
@@ -193,7 +197,6 @@ public class Main {
         animales.display();
 
         System.out.println("\nAñadir un nuevo animal al final:");
-        animales.addLast(new Animal(3, "Elefante"));
         animales.display();
 
         System.out.println("\nPrueba de invertir la lista:");

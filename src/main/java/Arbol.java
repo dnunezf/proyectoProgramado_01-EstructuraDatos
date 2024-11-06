@@ -216,4 +216,43 @@ public class Arbol {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    // Método para asignar un código a cada animal según su altura en el árbol
+    private void asignarCodigo(Nodo nodoActual, int nivelActual) {
+        if (nodoActual != null) {
+            // Asignar código al animal según el nivel (altura)
+            try {
+                nodoActual.getAnimal().setCodigo(nivelActual);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error al asignar código", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Recursión para los nodos hijos
+            asignarCodigo(nodoActual.getHijoIzquierdo(), nivelActual + 1);
+            asignarCodigo(nodoActual.getHijoDerecho(), nivelActual + 1);
+        }
+    }
+
+    // Método para llenar el contenedor con las hojas del árbol
+    public void llenarLista(Contenedor<Animal> contenedor) {
+        // Asignar códigos a todos los animales en el árbol
+        asignarCodigo(nodoRaiz, 1);
+
+        // Llamada recursiva para agregar las hojas al contenedor
+        llenarContenedorConHojas(nodoRaiz, contenedor);
+    }
+
+    // Método recursivo para agregar las hojas al contenedor
+    private void llenarContenedorConHojas(Nodo nodoActual, Contenedor<Animal> contenedor) {
+        if (nodoActual != null) {
+            // Si es una hoja (no tiene hijos), agregar al contenedor
+            if (nodoActual.getHijoIzquierdo() == null && nodoActual.getHijoDerecho() == null) {
+                contenedor.addFirst(nodoActual.getAnimal());
+            }
+
+            // Recursión para los nodos hijos
+            llenarContenedorConHojas(nodoActual.getHijoIzquierdo(), contenedor);
+            llenarContenedorConHojas(nodoActual.getHijoDerecho(), contenedor);
+        }
+    }
 }

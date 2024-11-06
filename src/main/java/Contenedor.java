@@ -147,10 +147,15 @@ public class Contenedor<T extends Animal>{
             return;
         }
         NodoD<T> temp = dummy.getSiguiente();
+        System.out.println();
         while (temp != back) {
             System.out.println(temp.getDato().toString());
             temp = temp.getSiguiente();
         }
     }
 
+    // MÉTODO QUE VERIFICA SI LA LISTA ESTÁ VACÍA
+    public boolean estaVacia() {
+        return dummy.getSiguiente() == back;
+    }
 }
