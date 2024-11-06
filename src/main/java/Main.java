@@ -1,23 +1,32 @@
 /* MAIN
 
- * REFERENCIAS (BIBLIOGRAFÍAS):
- * (2019, 04 abril). JAVA - Recorrido de árboles binarios por niveles | Sergio Ramirez
- * https://youtu.be/RyKvFhoP200?si=1iKV8XVHpqXaKMhe
- * (2015, 26 enero). How does "\\d" work in java?
- * https://stackoverflow.com/questions/28145881/how-does-d-work-in-java/28145978#28145978
- * (2024, 17 setiembre). QuickSort on Doubly Linked List
- * https://www.geeksforgeeks.org/quicksort-for-linked-list/
- * (2024). JAVA program for Insertion in the End of a Doubly Linked List
- * https://prepinsta.com/java-program/for-insertion-at-the-end-in-doubly-linked-list/
- * (2023, 18 abril). Java Program For Reversing A Doubly Linked List
- * https://www.geeksforgeeks.org/java-program-for-reversing-a-doubly-linked-list/
- * (2023, 30 setiembre). Como Usar FILEWRITER Y FILEREADER con JAVA FÁCIL Y RÁPIDO| ACCESO A DATOS | DAM
- * https://youtu.be/hwHzl9POl40
- * (2022, 5 mayo). Try With Resources vs Try-Catch
- * https://stackoverflow.com/questions/26516020/try-with-resources-vs-try-catch
- * (2020, 10 julio). What is JSON - Convert Java Object To JSON using GSON - GSON tutorial
- * https://youtu.be/QGWSk5U0tgc
- * (2021, 14 junio). Map and HashMap in Java - Full Tutorial. https://youtu.be/H62Jfv1DJlU?si=xj2pa0fgjDzkYXio
+    / -------------------------------------------------------------------+
+    * |
+    * (c) 2024 |
+    * 4-0268-0547 - Joseph García Montero      |
+    * 1-1908-0008 - David Alberto Núñez Franco |
+    * version 1.0.0 2024-11-12 |
+    * |
+    * -------------------------------------------------------------------+
+
+     * REFERENCIAS (BIBLIOGRAFÍAS):
+     * (2019, 04 abril). JAVA - Recorrido de árboles binarios por niveles | Sergio Ramirez
+     * https://youtu.be/RyKvFhoP200?si=1iKV8XVHpqXaKMhe
+     * (2015, 26 enero). How does "\\d" work in java?
+     * https://stackoverflow.com/questions/28145881/how-does-d-work-in-java/28145978#28145978
+     * (2024, 17 setiembre). QuickSort on Doubly Linked List
+     * https://www.geeksforgeeks.org/quicksort-for-linked-list/
+     * (2024). JAVA program for Insertion in the End of a Doubly Linked List
+     * https://prepinsta.com/java-program/for-insertion-at-the-end-in-doubly-linked-list/
+     * (2023, 18 abril). Java Program For Reversing A Doubly Linked List
+     * https://www.geeksforgeeks.org/java-program-for-reversing-a-doubly-linked-list/
+     * (2023, 30 setiembre). Como Usar FILEWRITER Y FILEREADER con JAVA FÁCIL Y RÁPIDO| ACCESO A DATOS | DAM
+     * https://youtu.be/hwHzl9POl40
+     * (2022, 5 mayo). Try With Resources vs Try-Catch
+     * https://stackoverflow.com/questions/26516020/try-with-resources-vs-try-catch
+     * (2020, 10 julio). What is JSON - Convert Java Object To JSON using GSON - GSON tutorial
+     * https://youtu.be/QGWSk5U0tgc
+     * (2021, 14 junio). Map and HashMap in Java - Full Tutorial. https://youtu.be/H62Jfv1DJlU?si=xj2pa0fgjDzkYXio
 
  */
 
@@ -100,6 +109,7 @@ public class Main {
                         animales.display();
                     break;
                 case "8":
+                    arbol.llenarMapaConCaracteristicas(features);
                     String animal = JOptionPane.showInputDialog("Ingrese el nombre del animal para buscar sus características:");
 
                     if (animal != null && !animal.isEmpty()) {
@@ -185,22 +195,5 @@ public class Main {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    // Proyeccion de listas
-    public static void proyectarListas(Contenedor<Animal> animales) {
-        System.out.println("\nProyección de la Lista de Animales:");
-        animales.display();
-
-        System.out.println("\nPrueba de ordenamiento:");
-        animales.sort();
-        animales.display();
-
-        System.out.println("\nAñadir un nuevo animal al final:");
-        animales.display();
-
-        System.out.println("\nPrueba de invertir la lista:");
-        animales.reverse();
-        animales.display();
     }
 }

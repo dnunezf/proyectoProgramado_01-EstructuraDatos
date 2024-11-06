@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 public class Contenedor<T extends Animal>{
     private NodoD<T> dummy;
     private NodoD<T> back;

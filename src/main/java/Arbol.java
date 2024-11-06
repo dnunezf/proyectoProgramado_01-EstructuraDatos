@@ -1,13 +1,10 @@
 /*CLASE ÁRBOL*/
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import com.google.gson.Gson;
+
 import javax.swing.*;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Arbol {
     // ATRIBUTO QUE CORRESPONDE A LA RAÍZ DEL ÁRBOL
@@ -258,22 +255,27 @@ public class Arbol {
         }
     }
 
+    // Llena el mapa con las características de cada animal
     public void llenarMapaConCaracteristicas(Features features) {
+        // Llama al método recursivo para llenar el mapa
         llenarMapaRecursivo(nodoRaiz, "", features);
     }
 
     // Método recursivo para llenar el mapa con todas las características de cada animal
     private void llenarMapaRecursivo(Nodo nodo, String caracteristicas, Features features) {
-        if (nodo != null) {
-            // Si es una hoja, añadimos el animal y todas las características acumuladas al mapa
+        if (nodo != null)
+        {
+            // Si no tiene hijos, es un animal
             if (nodo.getHijoIzquierdo() == null && nodo.getHijoDerecho() == null) {
+                // Agrega el animal al mapa, con sus características
                 features.addAnimal(nodo.getAnimal().getNombre(), caracteristicas);
-            } else {
-                // Si no es hoja, continuamos el recorrido por el hijo derecho (camino "sí")
-                // Agregamos la característica actual al string acumulado
+            }
+            else
+            {
+                // Llama recursivamente al hijo derecho, agregando la característica del animal
                 llenarMapaRecursivo(nodo.getHijoDerecho(), caracteristicas + nodo.getAnimal().getNombre() + " ", features);
 
-                // Continuamos por el hijo izquierdo sin añadir la característica actual (camino "no")
+                // Llama recursivamente al hijo izquierdo, no modifica las características
                 llenarMapaRecursivo(nodo.getHijoIzquierdo(), caracteristicas, features);
             }
         }

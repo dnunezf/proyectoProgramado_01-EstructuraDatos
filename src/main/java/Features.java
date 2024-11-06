@@ -1,3 +1,5 @@
+/*CLASE FEATURES*/
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +12,8 @@ public class Features {
     }
 
     // PERMITE AGREGAR UN ANIMAL CON SUS CARACTERÍSTICAS
-    public void addAnimal(String nombre, String characteristics) {
-        caracteristicas.put(nombre, characteristics);
+    public void addAnimal(String nombre, String caracteristicas) {
+        this.caracteristicas.put(nombre, caracteristicas);
     }
 
     // BUSCAR LAS CARACTERÍSTICAS DE UN ANIMAL
